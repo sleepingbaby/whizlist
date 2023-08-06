@@ -28,6 +28,7 @@ const LandingPage = () => {
           sx={{
             backgroundColor: "#597B91",
             "&:hover": { backgroundColor: "#324754" },
+            height: { sm: "56px" },
           }}
         >
           Submit
