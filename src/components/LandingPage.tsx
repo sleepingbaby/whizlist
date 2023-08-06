@@ -1,4 +1,4 @@
-import { Box, Button, Stack, TextField } from "@mui/material";
+import { Box, Button, Link, Stack, TextField } from "@mui/material";
 import AppIcon from "./AppIcon";
 
 const LandingPage = () => {
@@ -27,6 +27,9 @@ const LandingPage = () => {
           Submit
         </Button>
       </Stack>
+      <Link href="#" mt={2} sx={{ color: "#597B91" }}>
+        Find My Location
+      </Link>
     </Box>
   );
 };
