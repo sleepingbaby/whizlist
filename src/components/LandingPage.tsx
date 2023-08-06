@@ -10,7 +10,12 @@ const LandingPage = () => {
       sx={{ width: "100%" }}
     >
       <AppIcon />
-      <Stack direction="row" spacing={2} mt={4} sx={{ width: "50%" }}>
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        spacing={2}
+        mt={4}
+        sx={{ width: "50%" }}
+      >
         <TextField
           id="filled-basic"
           label="Location..."
