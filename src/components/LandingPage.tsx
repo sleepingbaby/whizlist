@@ -12,6 +12,7 @@ const LandingPage = () => {
       <AppIcon />
       <Stack
         direction={{ xs: "column", sm: "row" }}
+        alignItems="center"
         spacing={2}
         mt={4}
         sx={{ width: "50%" }}
@@ -40,7 +41,7 @@ const LandingPage = () => {
 };
 
 const InputCSS = {
-  width: "100%",
+  width: { xs: "150%", sm: "100%" },
   borderRadius: "8px",
   backgroundColor: "#D9D9D9",
   color: "#828282",
