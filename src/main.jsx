@@ -5,11 +5,14 @@ import { RouterProvider } from "react-router-dom";
 import router from "./router.jsx";
 import { ThemeProvider } from "@emotion/react";
 import theme from "./theme";
+import { UserContextProvider } from "./contexts/UserContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <UserContextProvider>
+      <ThemeProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </UserContextProvider>
   </React.StrictMode>
 );
