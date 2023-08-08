@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { api } from "../utilities";
 import { userContext } from "../contexts/UserContext";
+import { motion } from "framer-motion";
 
 const InputCSS = {
   width: { xs: "90%", sm: "100%" },
@@ -73,6 +74,14 @@ const Register = () => {
             color: "white",
             borderRadius: "8px",
             width: { xs: "90%", sm: "380px" },
+          }}
+          component={motion.div}
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: 0.8,
+            delay: 0.1,
+            ease: [0, 0.71, 0.2, 1.01],
           }}
         >
           <Typography sx={{ fontSize: "1.5em" }}>Register</Typography>
