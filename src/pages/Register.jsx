@@ -89,7 +89,8 @@ const Register = () => {
             id="filled-basic"
             value={userName}
             onChange={(event) => setUserName(event.target.value)}
-            label="Username"
+            label="Email"
+            type="email"
             variant="filled"
             required="true"
             sx={{ ...InputCSS }}
@@ -155,7 +156,7 @@ const Register = () => {
               marginTop: "15px",
             }}
           >
-            Log In
+            Register
           </Button>
         </Stack>
       </form>

@@ -3,7 +3,7 @@ import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { Stack, Typography, TextField, Box, Link, Button } from "@mui/material";
 import { api } from "../utilities";
 import { userContext } from "../contexts/UserContext";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const InputCSS = {
   width: { xs: "90%", sm: "100%" },
@@ -78,8 +78,9 @@ const Login = () => {
             id="filled-basic"
             value={userName}
             onChange={(event) => setUserName(event.target.value)}
-            label="Username"
+            label="Email"
             variant="filled"
+            type="email"
             sx={{ ...InputCSS }}
           />
           <TextField
