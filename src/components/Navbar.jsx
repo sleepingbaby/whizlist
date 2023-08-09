@@ -6,8 +6,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { userContext } from "../contexts/UserContext";
 import { api } from "../utilities";
 import WcIcon from "@mui/icons-material/Wc";
+import { listingContext } from "../contexts/ListingContext";
 
 const Navbar = () => {
+  const { setLocation } = useContext(listingContext);
   const { user, setUser } = useContext(userContext);
   const location = useLocation();
   const navigate = useNavigate();
@@ -36,6 +38,9 @@ const Navbar = () => {
     }
   };
   console.log(user);
+  const handleLogoClick = () => {
+    setLocation(null);
+  };
 
   const showLogo = location.pathname === "/";
   return (
@@ -46,7 +51,7 @@ const Navbar = () => {
       height={52}
     >
       {!showLogo && (
-        <Link to="/" style={{ marginRight: "auto" }}>
+        <Link to="/" style={{ marginRight: "auto" }} onClick={handleLogoClick}>
           <AppIconSmall />
         </Link>
       )}

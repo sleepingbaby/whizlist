@@ -6,13 +6,16 @@ import router from "./router.jsx";
 import { ThemeProvider } from "@emotion/react";
 import theme from "./theme";
 import { UserContextProvider } from "./contexts/UserContext";
+import { ListingContextProvider } from "./contexts/ListingContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <UserContextProvider>
-      <ThemeProvider theme={theme}>
-        <RouterProvider router={router} />
-      </ThemeProvider>
-    </UserContextProvider>
+    <ListingContextProvider>
+      <UserContextProvider>
+        <ThemeProvider theme={theme}>
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </UserContextProvider>
+    </ListingContextProvider>
   </React.StrictMode>
 );

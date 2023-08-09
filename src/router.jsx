@@ -4,6 +4,7 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import App from "./App.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
+import MapPage from "./pages/MapPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "forgotpassword",
         element: <ForgotPassword />,
+      },
+      {
+        path: "map",
+        element: <MapPage />,
       },
     ],
   },

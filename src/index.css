@@ -53,3 +53,127 @@ body {
     transform: translateX(10px);
   }
 }
+
+/* Loading Animation */
+
+#roll {
+  margin: 0 auto;
+  margin-top: 20px;
+  position: relative;
+  height: 120px;
+  width: 200px;
+  background-color: white;
+  border-radius: 60px;
+}
+#top {
+  position: absolute;
+
+  background-color: rgb(240, 240, 240);
+
+  height: 120px;
+  width: 120px;
+  border-radius: 60px;
+
+  z-index: 10;
+}
+#hole {
+  position: relative;
+  top: 40px;
+  left: 40px;
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  box-shadow: inset 5px 0px 0px 0px rgba(0, 0, 0, 0.5);
+  z-index: 20;
+}
+#shadow {
+  position: absolute;
+  top: 60px;
+  left: 60px;
+  background-color: rgb(133, 132, 132);
+  height: 60px;
+  width: 140px;
+  border-bottom-right-radius: 60px;
+
+  z-index: 5;
+}
+@keyframes paper {
+  from {
+    height: 0px;
+  }
+  to {
+    height: 80px;
+  }
+}
+#paper {
+  position: absolute;
+  top: 60px;
+  left: 120px;
+  background-color: white;
+  height: 0px;
+  width: 80px;
+  /*border-top: dashed 2px white;*/
+  border-bottom: dashed 1px black;
+  z-index: 30;
+  animation: paper 2s linear infinite;
+}
+@keyframes paper-fall {
+  from {
+    opacity: 100;
+    transform: rotate(0deg);
+    top: 60px;
+  }
+  to {
+    opacity: 0;
+    transform: rotate(-45deg);
+    top: 200px;
+  }
+}
+#paper-fall {
+  position: absolute;
+  top: 140px;
+  left: 120px;
+  background-color: white;
+  height: 80px;
+  width: 80px;
+  border-top: dashed 1px black;
+  z-index: 30;
+  animation: paper-fall 2s linear infinite;
+}
+
+@keyframes circle {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(45deg);
+  }
+}
+
+@keyframes inner-circle {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-45deg);
+  }
+}
+
+#cut {
+  position: absolute;
+  top: 0px;
+  left: 60px;
+
+  /*background-color: rgba(0,0,0,0.5);
+  z-index: 100;*/
+
+  animation: circle 2s linear infinite;
+  transform-origin: 0px 100px;
+}
+#inner-cut {
+  border-top: dashed 1px black;
+  width: 80px;
+
+  animation: inner-circle 2s linear infinite;
+}
