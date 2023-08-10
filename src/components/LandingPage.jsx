@@ -1,7 +1,7 @@
 import { Button, Stack, TextField } from "@mui/material";
 import AppIcon from "./AppIcon";
 import { listingContext } from "../contexts/ListingContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "../pages/Loading";
 

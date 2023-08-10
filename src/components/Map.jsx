@@ -1,16 +1,19 @@
 import React, { useContext, useState } from "react";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import { listingContext } from "../contexts/ListingContext";
+import { VITE_GOOGLE_API_KEY } from "../../.env";
 const containerStyle = {
   flex: 1,
   border: "8px solid #597B91",
   borderRadius: "8px",
 };
+const libraries = ["places"];
 const Map = () => {
   const { location, locationLoaded, toilets } = useContext(listingContext);
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyCIDSV3mtPwcrkvmNGME0V9A88Ix_btizg",
+    googleMapsApiKey: VITE_GOOGLE_API_KEY,
+    libraries: libraries,
   });
   const [map, setMap] = useState(null);
   const loaded = locationLoaded && isLoaded;
@@ -20,7 +23,6 @@ const Map = () => {
   };
 
   const onLoad = (map) => {
-    // const bounds = new window.google.maps.LatLngBounds(center);
     map.setZoom(15);
 
     setMap(map);
