@@ -37,7 +37,6 @@ const Navbar = () => {
       navigate("/");
     }
   };
-  console.log(user);
   const handleLogoClick = () => {
     setLocation(null);
   };
