@@ -37,9 +37,6 @@ const Navbar = () => {
       navigate("/");
     }
   };
-  const handleLogoClick = () => {
-    setLocation(null);
-  };
 
   const showLogo = location.pathname === "/";
   return (
@@ -50,7 +47,7 @@ const Navbar = () => {
       height={52}
     >
       {!showLogo && (
-        <Link to="/" style={{ marginRight: "auto" }} onClick={handleLogoClick}>
+        <Link to="/" style={{ marginRight: "auto" }}>
           <AppIconSmall />
         </Link>
       )}

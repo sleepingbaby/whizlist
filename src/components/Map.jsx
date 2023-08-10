@@ -30,6 +30,11 @@ const Map = () => {
     setMap(null);
   };
 
+  const handleMarkerClick = (marker) => {
+    const googleMapsLink = `https://www.google.com/maps/search/?api=1&query=${marker.latitude},${marker.longitude}`;
+    window.open(googleMapsLink, "_blank");
+  };
+
   return loaded ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
@@ -44,8 +49,9 @@ const Map = () => {
           <Marker
             key={toilet.id}
             position={{ lat: toilet.latitude, lng: toilet.longitude }}
+            onClick={() => handleMarkerClick(toilet)}
             icon={{
-              url: "src/images/noun-public-toilet-3302823.svg",
+              url: "noun-public.svg",
               scaledSize: new window.google.maps.Size(40, 40),
             }}
           />

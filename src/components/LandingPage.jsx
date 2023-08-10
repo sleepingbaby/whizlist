@@ -17,13 +17,16 @@ const LandingPage = () => {
         longitude: position.coords.longitude,
       });
       setLoading(false);
+      navigate(
+        `/map?lat=${position.coords.latitude}&lng=${position.coords.longitude}`
+      );
     });
   };
-  useEffect(() => {
-    if (location.latitude !== 0 && location.longitude !== 0) {
-      navigate(`/map?lat=${location.latitude}&lng=${location.longitude}`);
-    }
-  }, [location.latitude, location.longitude, navigate]);
+  // useEffect(() => {
+  //   if (location.latitude !== 0 && location.longitude !== 0) {
+  //     navigate(`/map?lat=${location.latitude}&lng=${location.longitude}`);
+  //   }
+  // }, [location.latitude, location.longitude, navigate]);
 
   return (
     <>
