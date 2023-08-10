@@ -20,10 +20,10 @@ const LandingPage = () => {
     });
   };
   useEffect(() => {
-    if (location) {
+    if (location.latitude !== 0 && location.longitude !== 0) {
       navigate(`/map?lat=${location.latitude}&lng=${location.longitude}`);
     }
-  }, [location]);
+  }, [location.latitude, location.longitude, navigate]);
 
   return (
     <>

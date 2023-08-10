@@ -39,16 +39,20 @@ const Map = () => {
       onMount={onUnmount}
     >
       <Marker position={center} />
-      {toilets.map((toilet, index) => (
-        <Marker
-          key={index}
-          position={{ lat: toilet.latitude, lng: toilet.longitude }}
-          icon={{
-            url: "src/images/noun-toilet-2765261.svg",
-            scaledSize: new window.google.maps.Size(40, 40),
-          }}
-        />
-      ))}
+      {toilets ? (
+        toilets.map((toilet, index) => (
+          <Marker
+            key={index}
+            position={{ lat: toilet.latitude, lng: toilet.longitude }}
+            icon={{
+              url: "src/images/noun-toilet-2765261.svg",
+              scaledSize: new window.google.maps.Size(40, 40),
+            }}
+          />
+        ))
+      ) : (
+        <div>Loading...</div>
+      )}
     </GoogleMap>
   ) : (
     <></>

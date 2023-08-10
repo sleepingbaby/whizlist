@@ -24,22 +24,26 @@ export function ListingContextProvider({ children }) {
 
   useEffect(() => {
     const getToilets = async () => {
-      setToilets(false);
-      try {
-        let response = await toilet.get(
-          `by_location?lat=${location.latitude}&lng=${location.longitude}`
-        );
-        const data = await response.data;
-        setToilets(data);
-        setToiletsLoaded(true);
-      } catch (err) {
-        console.log(err);
+      setToilets([]); // Initialize toilets to an empty array
+      if (
+        locationLoaded &&
+        location?.latitude !== 0 &&
+        location?.longitude !== 0
+      ) {
+        try {
+          let response = await toilet.get(
+            `by_location?lat=${location.latitude}&lng=${location.longitude}`
+          );
+          const data = await response.data;
+          setToilets(data);
+          setToiletsLoaded(true);
+        } catch (err) {
+          console.log(err);
+        }
       }
     };
-    if (locationLoaded) {
-      getToilets();
-    }
-  }, [locationLoaded]);
+    getToilets(); // Fetch toilets immediately when the component mounts
+  }, [locationLoaded, location]);
 
   return (
     <listingContext.Provider
