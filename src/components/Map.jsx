@@ -45,7 +45,7 @@ const Map = () => {
             key={toilet.id}
             position={{ lat: toilet.latitude, lng: toilet.longitude }}
             icon={{
-              url: "src/images/noun-toilet-2765261.svg",
+              url: "src/images/noun-public-toilet-3302823.svg",
               scaledSize: new window.google.maps.Size(40, 40),
             }}
           />
