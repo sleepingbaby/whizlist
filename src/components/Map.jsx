@@ -40,9 +40,9 @@ const Map = () => {
     >
       <Marker position={center} />
       {toilets ? (
-        toilets.map((toilet, index) => (
+        toilets.map((toilet) => (
           <Marker
-            key={index}
+            key={toilet.id}
             position={{ lat: toilet.latitude, lng: toilet.longitude }}
             icon={{
               url: "src/images/noun-toilet-2765261.svg",

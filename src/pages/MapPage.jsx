@@ -8,8 +8,8 @@ import Map from "../components/Map";
 const ListingsLoading = () => {
   return (
     <Stack spacing={1}>
-      {Array.from(Array(6)).map(() => (
-        <Skeleton variant="rectangular" height={80} width="100%" />
+      {Array.from(Array(6)).map((_, index) => (
+        <Skeleton key={index} variant="rectangular" height={80} width="100%" />
       ))}
     </Stack>
   );
