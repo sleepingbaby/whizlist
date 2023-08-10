@@ -30,7 +30,7 @@ const MapPage = () => {
 
   return (
     <Stack direction="row" pt={5} spacing={2} flex={1} overflow="hidden">
-      <Stack maxHeight="100%" minWidth="500px">
+      <Stack maxHeight="100%" minWidth={{ xs: "100%", sm: "500px" }}>
         <List
           sx={{
             width: "100%",
@@ -38,15 +38,15 @@ const MapPage = () => {
             backgroundColor: "white",
             overflow: "scroll",
             borderRadius: "8px",
-            padding: { xs: 0, sm: 2 },
             "::-webkit-scrollbar": {
               width: "0",
               background: "transparent",
             },
-            border: "8px solid ",
+            // border: "8px solid ",
             borderColor: "primary.main",
             maxHeight: "100%",
             minHeight: "100%",
+            padding: 0,
           }}
         >
           <Box
@@ -55,7 +55,6 @@ const MapPage = () => {
               color: "white",
               textAlign: "center",
               padding: "20px",
-              borderRadius: "8px",
             }}
           >
             {toilets.length} Toilets Near You
@@ -67,8 +66,10 @@ const MapPage = () => {
           )}
         </List>
       </Stack>
-
-      <Map />
+      <Box display="flex" flex="1" visibility={{ xs: "none" }}>
+        <Map />
+      </Box>
+      x
     </Stack>
   );
 };
