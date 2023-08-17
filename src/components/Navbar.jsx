@@ -1,11 +1,10 @@
 import React, { useEffect, useContext } from "react";
-import { Stack, Typography } from "@mui/material";
+import { Avatar, Box, Stack, Typography } from "@mui/material";
 import { AppIconSmall } from "./AppIcon";
 import { Link } from "react-router-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 import { userContext } from "../contexts/UserContext";
 import { api } from "../utilities";
-import WcIcon from "@mui/icons-material/Wc";
 import { listingContext } from "../contexts/ListingContext";
 
 const Navbar = () => {
@@ -57,20 +56,38 @@ const Navbar = () => {
           <Typography>Login</Typography>
         </Link>
       ) : (
-        <Stack direction="row" alignItems="flex-end">
-          <Typography sx={{ color: "white", marginRight: "15px" }}>
-            {user.email}
-          </Typography>
-          <Typography
-            sx={{
+        <Stack direction={{ xs: "column", sm: "row" }} alignItems="flex-end">
+          <Link
+            to="/profile"
+            style={{
               color: "white",
-              marginRight: "15px",
+              textDecoration: "none",
             }}
           >
-            <WcIcon color="primary.main" fontSize="small" />
-          </Typography>
+            <Typography
+              component={"span"}
+              display={{ xs: "none", sm: "block" }}
+              sx={{ "&:hover": { color: "orange" }, marginRight: "15px" }}
+            >
+              {user.display_name}
+            </Typography>
+          </Link>
+          <Box
+            sx={{
+              color: "white",
+              marginRight: { xs: "none", sm: "15px" },
+            }}
+          >
+            <Link to="/profile">
+              <Avatar
+                src={`${import.meta.env.VITE_BACKEND_URL}/${user.profile_pic}`}
+              />
+            </Link>
+          </Box>
           <Link to="/" style={{ textDecoration: "none" }} className="link">
-            <Typography onClick={logOut}>Logout</Typography>
+            <Typography component={"span"} onClick={logOut}>
+              Logout
+            </Typography>
           </Link>
         </Stack>
       )}

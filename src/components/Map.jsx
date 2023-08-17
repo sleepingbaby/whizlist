@@ -1,26 +1,26 @@
-import React, { useContext, useState } from "react";
-import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
+import React, { useContext, useState, useEffect } from "react";
+import { GoogleMap, MarkerF as Marker } from "@react-google-maps/api";
 import { listingContext } from "../contexts/ListingContext";
-import { VITE_GOOGLE_API_KEY } from "../../.env";
 const containerStyle = {
   flex: 1,
   border: "8px solid #597B91",
   borderRadius: "8px",
 };
-const libraries = ["places"];
+
 const Map = () => {
   const { location, locationLoaded, toilets } = useContext(listingContext);
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: VITE_GOOGLE_API_KEY,
-    libraries: libraries,
-  });
   const [map, setMap] = useState(null);
-  const loaded = locationLoaded && isLoaded;
-  const center = {
-    lat: parseFloat(location.latitude),
-    lng: parseFloat(location.longitude),
-  };
+  const [center, setCenter] = useState({
+    lat: 0,
+    lng: 0,
+  });
+
+  useEffect(() => {
+    setCenter({
+      lat: Number(location.latitude),
+      lng: Number(location.longitude),
+    });
+  }, [location]);
 
   const onLoad = (map) => {
     map.setZoom(15);
@@ -37,7 +37,7 @@ const Map = () => {
     window.open(googleMapsLink, "_blank");
   };
 
-  return loaded ? (
+  return locationLoaded ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={center}
@@ -45,19 +45,21 @@ const Map = () => {
       onLoad={onLoad}
       onMount={onUnmount}
     >
-      <Marker position={center} />
       {toilets ? (
-        toilets.map((toilet) => (
-          <Marker
-            key={toilet.id}
-            position={{ lat: toilet.latitude, lng: toilet.longitude }}
-            onClick={() => handleMarkerClick(toilet)}
-            icon={{
-              url: "noun-public.svg",
-              scaledSize: new window.google.maps.Size(40, 40),
-            }}
-          />
-        ))
+        <>
+          <Marker position={center} />
+          {toilets.map((toilet) => (
+            <Marker
+              key={toilet.id}
+              position={{ lat: toilet.latitude, lng: toilet.longitude }}
+              onClick={() => handleMarkerClick(toilet)}
+              icon={{
+                url: "noun-public.svg",
+                scaledSize: new window.google.maps.Size(50, 50),
+              }}
+            />
+          ))}
+        </>
       ) : (
         <div>Loading...</div>
       )}

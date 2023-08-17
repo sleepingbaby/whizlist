@@ -1,14 +1,40 @@
-import { Button, Stack, TextField } from "@mui/material";
+import { Button, Stack, TextField, Typography } from "@mui/material";
 import AppIcon from "./AppIcon";
 import { listingContext } from "../contexts/ListingContext";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "../pages/Loading";
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from "react-places-autocomplete";
 
 const LandingPage = () => {
   const navigate = useNavigate();
-  const { location, setLocation } = useContext(listingContext);
+  const { setLocation } = useContext(listingContext);
   const [loading, setLoading] = useState(false);
+  const [address, setAddress] = useState("");
+  const [customLocation, setCustomLocation] = useState("");
+
+  const handleSelect = async (address) => {
+    setAddress(address);
+    try {
+      const results = await geocodeByAddress(address);
+      const location = await getLatLng(results[0]);
+      setCustomLocation(location);
+    } catch (error) {
+      console.error("Error geocoding selected place: ", error);
+    }
+  };
+
+  const handleSubmit = () => {
+    setLocation({
+      latitude: customLocation.lat,
+      longitude: customLocation.lng,
+    });
+    navigate(`/map?lat=${customLocation.lat}&lng=${customLocation.lng}`);
+  };
+
   const handleLocate = () => {
     setLoading(true);
     navigator.geolocation.getCurrentPosition((position) => {
@@ -22,11 +48,6 @@ const LandingPage = () => {
       );
     });
   };
-  // useEffect(() => {
-  //   if (location.latitude !== 0 && location.longitude !== 0) {
-  //     navigate(`/map?lat=${location.latitude}&lng=${location.longitude}`);
-  //   }
-  // }, [location.latitude, location.longitude, navigate]);
 
   return (
     <>
@@ -42,28 +63,100 @@ const LandingPage = () => {
           <Stack
             direction={{ xs: "column", sm: "row" }}
             alignItems="center"
+            justifyContent="center"
             spacing={2}
             mt={4}
             sx={{ width: "100%", maxWidth: "700px" }}
           >
-            <TextField
+            {/* <TextField
               id="filled-basic"
               label="Location..."
               variant="filled"
               sx={{ ...InputCSS }}
-            />
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: "primary.main",
-                "&:hover": { backgroundColor: "#324754" },
-                height: { sm: "56px" },
-                width: { xs: "90%", sm: "100px" },
-                borderRadius: "8px",
-              }}
+            /> */}
+            <PlacesAutocomplete
+              value={address}
+              onChange={setAddress}
+              onSelect={handleSelect}
             >
-              Submit
-            </Button>
+              {({
+                getInputProps,
+                suggestions,
+                getSuggestionItemProps,
+                loading,
+              }) => (
+                <Stack
+                  width="100%"
+                  alignItems="center"
+                  justifyContent="center"
+                  position="relative"
+                >
+                  <TextField
+                    id="filled-basic"
+                    variant="filled"
+                    label="Location..."
+                    sx={{ ...InputCSS }}
+                    {...getInputProps({})}
+                  />
+                  <Stack
+                    position="absolute"
+                    bottom={{ xs: -150, sm: -125 }}
+                    zIndex={20}
+                    width="100%"
+                  >
+                    {loading && <div>Loading...</div>}
+                    {suggestions.map((suggestion, index) => {
+                      const style = {
+                        backgroundColor: "#D9D9D9",
+                        color: "#828282",
+                        maxWidth: "100%",
+                      };
+                      return (
+                        <Stack
+                          key={index}
+                          className="suggestion"
+                          {...getSuggestionItemProps(suggestion, { style })}
+                        >
+                          <Typography
+                            sx={{
+                              "&:hover": {
+                                backgroundColor: "primary.main",
+                                color: "white",
+                                cursor: "pointer",
+                              },
+                            }}
+                          >
+                            {suggestion.description}
+                          </Typography>
+                        </Stack>
+                      );
+                    })}
+                  </Stack>
+                </Stack>
+              )}
+            </PlacesAutocomplete>
+            <Stack
+              height="100%"
+              width={{ xs: "90%", sm: "100px" }}
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Button
+                variant="contained"
+                onClick={handleSubmit}
+                disabled={!customLocation}
+                sx={{
+                  backgroundColor: "primary.main",
+                  "&:hover": { backgroundColor: "#324754" },
+                  height: { sm: "56px" },
+                  width: "100%",
+                  borderRadius: "8px",
+                  "&:disabled": { backgroundColor: "secondary.main" },
+                }}
+              >
+                Submit
+              </Button>
+            </Stack>
           </Stack>
           <Button onClick={handleLocate}>Find My Location</Button>
         </Stack>
@@ -77,7 +170,6 @@ const InputCSS = {
   borderRadius: "8px",
   backgroundColor: "#D9D9D9",
   color: "#828282",
-  marginTop: "25px",
   "& label.Mui-focused": { color: "#828282" },
   "& .MuiFilledInput-underline:after": {
     borderBottom: "none",

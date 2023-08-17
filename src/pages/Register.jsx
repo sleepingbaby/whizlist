@@ -8,10 +8,13 @@ import {
   Link,
   Button,
   Alert,
+  IconButton,
 } from "@mui/material";
+import { Close } from "@mui/icons-material";
 import { api } from "../utilities";
 import { userContext } from "../contexts/UserContext";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 const InputCSS = {
   width: { xs: "90%", sm: "100%" },
@@ -29,7 +32,11 @@ const Register = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [displayName, setDisplayName] = useState("");
   const [isShaking, setIsShaking] = useState(false);
+  const [error, setError] = useState("");
   const { setUser } = useContext(userContext);
   const navigate = useNavigate();
 
@@ -40,8 +47,16 @@ const Register = () => {
       .post("users/register/", {
         email: userName,
         password: password,
+        first_name: firstName,
+        last_name: lastName,
+        display_name: displayName,
       })
-      .catch((err) => {
+      .catch((error) => {
+        if (axios.isAxiosError(error)) {
+          setError(error.response.data);
+        } else {
+          setError("Unknown error occurred.");
+        }
         setIsShaking(true);
         setTimeout(() => {
           setIsShaking(false);
@@ -86,34 +101,67 @@ const Register = () => {
         >
           <Typography sx={{ fontSize: "1.5em" }}>Register</Typography>
           <TextField
-            id="filled-basic"
+            required
             value={userName}
             onChange={(event) => setUserName(event.target.value)}
             label="Email"
             type="email"
             variant="filled"
-            required="true"
             sx={{ ...InputCSS }}
           />
           <TextField
-            id="filled-basic"
+            value={firstName}
+            onChange={(event) => setFirstName(event.target.value)}
+            label="First Name"
+            type="text"
+            variant="filled"
+            required
+            sx={{ ...InputCSS }}
+          />
+          <TextField
+            value={lastName}
+            onChange={(event) => setLastName(event.target.value)}
+            label="Last Name"
+            type="text"
+            variant="filled"
+            required
+            sx={{ ...InputCSS }}
+          />
+          <TextField
+            value={displayName}
+            onChange={(event) => setDisplayName(event.target.value)}
+            label="User Name"
+            type="text"
+            variant="filled"
+            required
+            sx={{ ...InputCSS }}
+          />
+          <TextField
             value={password}
             onChange={(event) => setPassword(event.target.value)}
             label="Password"
             type="password"
             variant="filled"
-            required="true"
+            required
             sx={{ ...InputCSS }}
           />
           <TextField
-            id="filled-basic"
             onChange={(event) => setConfirmPassword(event.target.value)}
             label="Confirm Password"
             type="password"
             variant="filled"
-            required="true"
+            required
             sx={{ ...InputCSS }}
           />
+          {error && (
+            <Stack direction="row" alignItems="center">
+              <Typography sx={{ color: "red" }}>{error}</Typography>
+              <IconButton onClick={() => setError("")}>
+                <Close />
+              </IconButton>
+            </Stack>
+          )}
+
           {password !== confirmPassword && (
             <Alert
               severity="warning"

@@ -40,6 +40,7 @@ const Login = () => {
     let user = response.data.user;
     let token = response.data.token;
     setUser(user);
+    console.log(user);
     localStorage.setItem("token", token);
     api.defaults.headers.common["Authorization"] = `Token ${token}`;
     navigate("/");
@@ -75,7 +76,6 @@ const Login = () => {
         >
           <Typography sx={{ fontSize: "1.5em" }}>Log In</Typography>
           <TextField
-            id="filled-basic"
             value={userName}
             onChange={(event) => setUserName(event.target.value)}
             label="Email"
@@ -84,7 +84,6 @@ const Login = () => {
             sx={{ ...InputCSS }}
           />
           <TextField
-            id="filled-basic"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
             label="Password"

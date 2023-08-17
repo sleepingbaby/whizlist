@@ -32,7 +32,7 @@ export function ListingContextProvider({ children }) {
       ) {
         try {
           let response = await toilet.get(
-            `by_location?lat=${location.latitude}&lng=${location.longitude}`
+            `by_location?per_page=20&lat=${location.latitude}&lng=${location.longitude}`
           );
           const data = await response.data;
           setToilets(data);
