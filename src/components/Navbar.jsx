@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { userContext } from "../contexts/UserContext";
 import { api } from "../utilities";
 import { listingContext } from "../contexts/ListingContext";
+import { SentimentSatisfied } from "@mui/icons-material";
 
 const Navbar = () => {
   const { setLocation } = useContext(listingContext);
@@ -79,9 +80,17 @@ const Navbar = () => {
             }}
           >
             <Link to="/profile">
-              <Avatar
-                src={`${import.meta.env.VITE_BACKEND_URL}/${user.profile_pic}`}
-              />
+              {user.profile_pic ? (
+                <Avatar
+                  src={`${import.meta.env.VITE_BACKEND_URL}/${
+                    user.profile_pic
+                  }`}
+                />
+              ) : (
+                <Avatar>
+                  <SentimentSatisfied fontSize="medium" />
+                </Avatar>
+              )}
             </Link>
           </Box>
           <Link to="/" style={{ textDecoration: "none" }} className="link">

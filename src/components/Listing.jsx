@@ -33,6 +33,8 @@ const Listing = ({ toilet }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [commentText, setCommentText] = useState("");
   const [toiletCommentData, setToiletCommentData] = useState([]);
+  const showFullDivider =
+    !toilet.accessible && !toilet.unisex && !toilet.changing_table;
 
   const fetchCommentData = async () => {
     await api.get(`comments/toilet/${toilet.id}/`).then((response) => {
@@ -86,14 +88,21 @@ const Listing = ({ toilet }) => {
         console.error("Error adding comment: ", error);
       });
     fetchCommentData();
+    setCommentText("");
   };
 
   return (
-    <Accordion sx={{ "&.MuiAccordion-root": { boxShadow: "none" } }}>
+    <Accordion
+      sx={{
+        "&.MuiAccordion-root": { boxShadow: "none" },
+        "&.Mui-expanded": { m: 0 },
+      }}
+    >
       <AccordionSummary
         expandIcon={<ExpandMore />}
         aria-controls="panel1a-content"
         id="panel1a-header"
+        style={{ userSelect: "text" }}
       >
         <Stack sx={{ width: "100%" }}>
           <Stack direction="row" alignItems="center" spacing={1}>
@@ -114,23 +123,28 @@ const Listing = ({ toilet }) => {
           <Typography color={"#8d8d8d"}>{toilet.street}</Typography>
         </Stack>
       </AccordionSummary>
-      <Divider>
-        {toilet.accessible && (
-          <Tooltip title="Handicap Accessible">
-            <AccessibleOutlined />
-          </Tooltip>
-        )}
-        {toilet.unisex && (
-          <Tooltip title="Unisex Stalls">
-            <WcOutlined />
-          </Tooltip>
-        )}
-        {toilet.changing_table && (
-          <Tooltip title="Changing Station">
-            <BabyChangingStationOutlined />
-          </Tooltip>
-        )}
-      </Divider>
+
+      {showFullDivider ? (
+        <Divider />
+      ) : (
+        <Divider>
+          {toilet.accessible && (
+            <Tooltip title="Handicap Accessible" arrow>
+              <AccessibleOutlined />
+            </Tooltip>
+          )}
+          {toilet.unisex && (
+            <Tooltip title="Unisex Stalls" arrow>
+              <WcOutlined />
+            </Tooltip>
+          )}
+          {toilet.changing_table && (
+            <Tooltip title="Changing Station" arrow>
+              <BabyChangingStationOutlined />
+            </Tooltip>
+          )}
+        </Divider>
+      )}
       <AccordionDetails>
         {toilet.directions && (
           <>
@@ -226,7 +240,7 @@ const Listing = ({ toilet }) => {
                               aria-label="delete"
                               onClick={() => handleDeleteComment(obj.id)}
                             >
-                              <Close />
+                              <Close fontSize="small" />
                             </IconButton>
                           )}
                         </ListItem>
@@ -242,7 +256,12 @@ const Listing = ({ toilet }) => {
                 <Stack justifyContent="center" alignItems="center" spacing={2}>
                   <TextField
                     type="text"
-                    label="Write your comment here..."
+                    label={
+                      user
+                        ? "Write your comment here..."
+                        : "Please log in to comment."
+                    }
+                    disabled={!user}
                     value={commentText}
                     onChange={(e) => setCommentText(e.target.value)}
                     sx={{ width: "100%" }}

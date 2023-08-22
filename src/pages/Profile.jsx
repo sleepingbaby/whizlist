@@ -10,7 +10,7 @@ import {
   Button,
   Tooltip,
 } from "@mui/material";
-import { FileUpload } from "@mui/icons-material";
+import { FileUpload, SentimentSatisfied } from "@mui/icons-material";
 import { api } from "../utilities";
 
 const InputCSS = {
@@ -20,22 +20,32 @@ const InputCSS = {
   color: "#828282",
   marginTop: "25px",
   "& label.Mui-focused": { color: "#828282" },
+  "& .MuiFilledInput-underline:before": {
+    borderBottom: "none",
+  },
   "& .MuiFilledInput-underline:after": {
     borderBottom: "none",
+  },
+  "& .MuiFilledInput-underline:hover:before": {
+    borderBottom: "none",
+  },
+  "& .MuiInputBase-root": {
+    borderRadius: "8px",
   },
 };
 
 const Profile = () => {
   const { user, getUser } = useContext(userContext);
   const [profilePic, setProfilePic] = useState(
-    `${import.meta.env.VITE_BACKEND_URL}/${user.profile_pic}`
+    user.profile_pic
+      ? `${import.meta.env.VITE_BACKEND_URL}/${user.profile_pic}`
+      : null
   );
   const [previewURL, setPreviewURL] = useState(null);
   const [firstName, setFirstName] = useState(user.first_name);
   const [lastName, setLastName] = useState(user.last_name);
   const [userName, setUserName] = useState(user.display_name);
   const [showUpload, setShowUpload] = useState(false);
-
   const handleMouseEnter = () => {
     setShowUpload(true);
   };
@@ -59,7 +69,6 @@ const Profile = () => {
     formData["first_name"] = firstName;
     formData["last_name"] = lastName;
     formData["display_name"] = userName;
-    console.log(formData);
     await api
       .patch(`users/update-profile/`, formData, {
         headers: {
@@ -119,22 +128,39 @@ const Profile = () => {
                 </Tooltip>
               ) : (
                 <>
-                  <Avatar
-                    src={
-                      previewURL
-                        ? previewURL
-                        : `${import.meta.env.VITE_BACKEND_URL}/${
+                  {profilePic ? (
+                    <Avatar
+                      src={
+                        previewURL ||
+                        (user.profile_pic &&
+                          `${import.meta.env.VITE_BACKEND_URL}/${
                             user.profile_pic
-                          }`
-                    }
-                    alt="Preview"
-                    sx={{ width: 75, height: 75, marginBottom: "15px" }}
-                  />
+                          }`)
+                      }
+                      alt="Preview"
+                      sx={{ width: 75, height: 75, marginBottom: "15px" }}
+                    />
+                  ) : (
+                    <Avatar
+                      sx={{ width: 75, height: 75, marginBottom: "15px" }}
+                    >
+                      <SentimentSatisfied fontSize="large" />
+                    </Avatar>
+                  )}
                 </>
               )}
             </Button>
 
             <Stack>
+              <Stack>
+                <TextField
+                  variant="filled"
+                  label="Email"
+                  disabled
+                  value={user.email}
+                  sx={{ ...InputCSS }}
+                />
+              </Stack>
               <Stack>
                 <TextField
                   variant="filled"

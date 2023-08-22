@@ -3,8 +3,9 @@ import { GoogleMap, MarkerF as Marker } from "@react-google-maps/api";
 import { listingContext } from "../contexts/ListingContext";
 const containerStyle = {
   flex: 1,
-  border: "8px solid #597B91",
+  border: "8px solid #3E4D6A",
   borderRadius: "8px",
+  minHeight: "500px",
 };
 
 const Map = () => {

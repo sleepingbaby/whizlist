@@ -2,7 +2,8 @@ import { Button, Stack, TextField, Typography } from "@mui/material";
 import AppIcon from "./AppIcon";
 import { listingContext } from "../contexts/ListingContext";
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+
 import Loading from "../pages/Loading";
 import PlacesAutocomplete, {
   geocodeByAddress,
@@ -99,12 +100,16 @@ const LandingPage = () => {
                     {...getInputProps({})}
                   />
                   <Stack
-                    position="absolute"
-                    bottom={{ xs: -150, sm: -125 }}
                     zIndex={20}
-                    width="100%"
+                    maxHeight="125px"
+                    position="absolute"
+                    overflow="hidden"
+                    sx={{
+                      top: "60px",
+                      width: "100%",
+                    }}
                   >
-                    {loading && <div>Loading...</div>}
+                    {loading && <></>}
                     {suggestions.map((suggestion, index) => {
                       const style = {
                         backgroundColor: "#D9D9D9",
@@ -158,7 +163,13 @@ const LandingPage = () => {
               </Button>
             </Stack>
           </Stack>
-          <Button onClick={handleLocate}>Find My Location</Button>
+          <Link
+            className="link"
+            onClick={handleLocate}
+            style={{ marginTop: "15px" }}
+          >
+            Find My Location
+          </Link>
         </Stack>
       )}
     </>

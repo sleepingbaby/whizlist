@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { listingContext } from "../contexts/ListingContext";
-import { List, Stack, Skeleton, Box } from "@mui/material";
+import { List, Stack, Skeleton, Box, Typography, Link } from "@mui/material";
 import Listing from "../components/Listing";
 import Map from "../components/Map";
 
@@ -29,14 +29,27 @@ const MapPage = () => {
   }, [location]);
 
   return (
-    <Stack direction="row" pt={5} spacing={2} flex={1} overflow="hidden">
-      <Stack maxHeight="100%" minWidth={{ xs: "100%", sm: "500px" }}>
+    <Stack
+      direction={{ sm: "column", md: "row" }}
+      pt={5}
+      pb={2}
+      gap={2}
+      flex={1}
+      height={`calc(100% - 40px)`}
+    >
+      <Box display="flex" flex="1">
+        <Map />
+      </Box>
+      <Stack
+        maxHeight="100%"
+        minHeight="100%"
+        minWidth={{ sm: "100%", md: "500px" }}
+      >
         <List
           sx={{
             width: "100%",
-            maxWidth: { xs: "100%", sm: "500px" },
-            backgroundColor: "white",
-            overflow: "scroll",
+            maxWidth: { sm: "100%", md: "500px" },
+            overflow: "auto",
             borderRadius: "8px",
             "::-webkit-scrollbar": {
               width: "0",
@@ -46,6 +59,7 @@ const MapPage = () => {
             borderColor: "primary.main",
             maxHeight: "100%",
             minHeight: "100%",
+            margin: 0,
             padding: 0,
           }}
         >
@@ -57,7 +71,18 @@ const MapPage = () => {
               padding: "20px",
             }}
           >
-            {toilets.length} Toilets Near You
+            {toilets.length > 0 ? (
+              <Typography>{toilets.length} Toilets Near You</Typography>
+            ) : (
+              <Typography>Loading...</Typography>
+            )}
+            <Link
+              href="https://www.refugerestrooms.org/restrooms/new"
+              target="_blank"
+              sx={{ fontSize: ".8rem" }}
+            >
+              Submit a new toilet
+            </Link>
           </Box>
           {!toiletsLoaded ? (
             <ListingsLoading />
@@ -66,10 +91,6 @@ const MapPage = () => {
           )}
         </List>
       </Stack>
-      <Box display="flex" flex="1" visibility={{ xs: "none" }}>
-        <Map />
-      </Box>
-      x
     </Stack>
   );
 };
