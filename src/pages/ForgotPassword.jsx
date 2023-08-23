@@ -18,7 +18,7 @@ const InputCSS = {
   "& .MuiFilledInput-underline:after": {
     borderBottom: "none",
   },
-  "& .MuiFilledInput-underline:hover:before": {
+  "& .MuiFilledInput-underline:hover::before": {
     borderBottom: "none",
   },
   "& .MuiFilledInput-underline:hover": {
