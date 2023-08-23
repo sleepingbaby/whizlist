@@ -29,6 +29,9 @@ const InputCSS = {
   "& .MuiFilledInput-underline:hover:before": {
     borderBottom: "none",
   },
+  "& .MuiFilledInput-underline:hover": {
+    borderBottom: "none",
+  },
   "& .MuiInputBase-root": {
     borderRadius: "8px",
   },
@@ -38,7 +41,7 @@ const Profile = () => {
   const { user, getUser } = useContext(userContext);
   const [profilePic, setProfilePic] = useState(
     user.profile_pic
-      ? `${import.meta.env.VITE_BACKEND_URL}/${user.profile_pic}`
+      ? `${import.meta.env.VITE_BACKEND_URL}${user.profile_pic}`
       : null
   );
   const [previewURL, setPreviewURL] = useState(null);
@@ -133,7 +136,7 @@ const Profile = () => {
                       src={
                         previewURL ||
                         (user.profile_pic &&
-                          `${import.meta.env.VITE_BACKEND_URL}/${
+                          `${import.meta.env.VITE_BACKEND_URL}${
                             user.profile_pic
                           }`)
                       }

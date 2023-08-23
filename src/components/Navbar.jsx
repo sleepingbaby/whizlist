@@ -82,9 +82,7 @@ const Navbar = () => {
             <Link to="/profile">
               {user.profile_pic ? (
                 <Avatar
-                  src={`${import.meta.env.VITE_BACKEND_URL}/${
-                    user.profile_pic
-                  }`}
+                  src={`${import.meta.env.VITE_BACKEND_URL}${user.profile_pic}`}
                 />
               ) : (
                 <Avatar>
