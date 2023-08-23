@@ -75,6 +75,7 @@ const Profile = () => {
     if (profilePic) {
       formData["profile_pic"] = profilePic;
     }
+    formData["id"] = user.id;
     formData["first_name"] = firstName;
     formData["last_name"] = lastName;
     formData["display_name"] = userName;
