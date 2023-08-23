@@ -67,7 +67,7 @@ class Update(APIView):
         display_name = request.data.get("display_name")
 
         # Update user profile data
-        user_profile = App_user.objects.get(display_name=display_name)
+        user_profile = App_user.objects.get(id=request.data.id)
         user_profile.profile_pic = profile_pic
         user_profile.first_name = first_name
         user_profile.last_name = last_name
