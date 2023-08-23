@@ -23,8 +23,20 @@ const InputCSS = {
   color: "#828282",
   marginTop: "25px",
   "& label.Mui-focused": { color: "#828282" },
+  "& .MuiFilledInput-underline:before": {
+    borderBottom: "none",
+  },
   "& .MuiFilledInput-underline:after": {
     borderBottom: "none",
+  },
+  "& .MuiFilledInput-underline:hover:before": {
+    borderBottom: "none",
+  },
+  "& .MuiFilledInput-underline:hover": {
+    borderBottom: "none",
+  },
+  "& .MuiInputBase-root": {
+    borderRadius: "8px",
   },
 };
 
