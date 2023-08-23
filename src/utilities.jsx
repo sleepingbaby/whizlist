@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://54.153.46.22/api/",
+  baseURL: "https://54.153.46.22/api/",
 });
 
 export const toilet = axios.create({
