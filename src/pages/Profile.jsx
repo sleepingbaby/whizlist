@@ -35,6 +35,9 @@ const InputCSS = {
   "& .MuiInputBase-root": {
     borderRadius: "8px",
   },
+  "& .MuiInputBase-root:hover": {
+    borderBottom: "none",
+  },
 };
 
 const Profile = () => {
