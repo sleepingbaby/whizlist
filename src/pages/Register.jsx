@@ -90,6 +90,7 @@ const Register = () => {
             borderRadius: "8px",
             width: { xs: "90%", sm: "380px" },
           }}
+          mb={2}
           component={motion.div}
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
