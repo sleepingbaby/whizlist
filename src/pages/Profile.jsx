@@ -38,6 +38,9 @@ const InputCSS = {
   "& .MuiInputBase-root:hover": {
     borderBottom: "none",
   },
+  "& .Mui-disabled:before": {
+    borderBottom: "none",
+  },
 };
 
 const Profile = () => {
