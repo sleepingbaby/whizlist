@@ -41,6 +41,9 @@ const InputCSS = {
   "& .Mui-disabled:before": {
     borderBottom: "none",
   },
+  "& .MuiTextField-root .MuiInputBase-root:hover:not(.Mui-disabled):before": {
+    borderBottom: "none",
+  },
 };
 
 const Profile = () => {

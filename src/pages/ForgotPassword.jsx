@@ -30,6 +30,9 @@ const InputCSS = {
   "& .MuiInputBase-root:hover": {
     borderBottom: "none",
   },
+  "& .MuiTextField-root .MuiInputBase-root:hover:not(.Mui-disabled):before": {
+    borderBottom: "none",
+  },
 };
 
 const ForgotPassword = () => {
