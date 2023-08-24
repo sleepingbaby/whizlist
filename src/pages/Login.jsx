@@ -27,10 +27,16 @@ const InputCSS = {
   "& .MuiInputBase-root": {
     borderRadius: "8px",
   },
+  "& .MuiInputBase-root.MuiFilledInput-root:before": {
+    borderBottom: "none",
+  },
   "& .MuiInputBase-root:hover": {
     borderBottom: "none",
   },
-  "& .MuiTextField-root .MuiInputBase-root:hover:not(.Mui-disabled):before": {
+  "& .Mui-disabled:before": {
+    borderBottom: "none",
+  },
+  "& .MuiInputBase-root:hover:not(.Mui-disabled):before": {
     borderBottom: "none",
   },
 };

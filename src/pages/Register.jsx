@@ -22,7 +22,6 @@ const InputCSS = {
   backgroundColor: "#D9D9D9",
   color: "#828282",
   marginTop: "25px",
-  "& label.Mui-focused": { color: "#828282" },
   "& .MuiFilledInput-underline:before": {
     borderBottom: "none",
   },
@@ -38,10 +37,16 @@ const InputCSS = {
   "& .MuiInputBase-root": {
     borderRadius: "8px",
   },
+  "& .MuiInputBase-root.MuiFilledInput-root:before": {
+    borderBottom: "none",
+  },
   "& .MuiInputBase-root:hover": {
     borderBottom: "none",
   },
-  "& .MuiTextField-root .MuiInputBase-root:hover:not(.Mui-disabled):before": {
+  "& .Mui-disabled:before": {
+    borderBottom: "none",
+  },
+  "& .MuiInputBase-root:hover:not(.Mui-disabled):before": {
     borderBottom: "none",
   },
 };
