@@ -1,6 +1,7 @@
 from user.serializers import UserSerializer
 from .models import App_user
 from django.contrib.auth import authenticate
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -11,6 +12,7 @@ from rest_framework.status import (
     HTTP_204_NO_CONTENT,
     HTTP_400_BAD_REQUEST,
     HTTP_403_FORBIDDEN,
+    HTTP_404_NOT_FOUND,
 )
 
 
@@ -68,7 +70,10 @@ class Update(APIView):
         id = request.data.get("id")
 
         # Update user profile data
-        user_profile = App_user.objects.get(id=int(id))
+        try:
+            user_profile = App_user.objects.get(id=id)
+        except ObjectDoesNotExist:
+            return Response({"message": "User not found"}, status=HTTP_404_NOT_FOUND)
         user_profile.profile_pic = profile_pic
         user_profile.first_name = first_name
         user_profile.last_name = last_name
