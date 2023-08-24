@@ -67,9 +67,10 @@ class Update(APIView):
         first_name = request.data.get("first_name")
         last_name = request.data.get("last_name")
         display_name = request.data.get("display_name")
+        old = request.data.get("old_display")
 
         try:
-            user_profile = App_user.objects.get(user=request.user)
+            user_profile = App_user.objects.get(display_name=old)
         except ObjectDoesNotExist:
             return Response({"message": "User not found"}, status=HTTP_404_NOT_FOUND)
         user_profile.profile_pic = profile_pic
