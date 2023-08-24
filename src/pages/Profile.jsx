@@ -78,7 +78,6 @@ const Profile = () => {
     formData["first_name"] = firstName;
     formData["last_name"] = lastName;
     formData["display_name"] = userName;
-    console.log(formData);
     await api
       .patch(`users/update-profile/`, formData, {
         headers: {

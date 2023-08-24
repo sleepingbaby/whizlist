@@ -63,19 +63,29 @@ class Update(APIView):
     permission_classes = [IsAuthenticated]
 
     def patch(self, request):
-        profile_pic = request.FILES.get("profile_pic")  # Extract the uploaded image
-        first_name = request.data.get("first_name")
-        last_name = request.data.get("last_name")
-        display_name = request.data.get("display_name")
+        user_profile = App_user.objects.get(
+            email=request.user.email
+        )  # Assuming App_user is your custom user model
+        serializer = UserSerializer(user_profile, data=request.data, partial=True)
 
-        try:
-            user_profile = App_user.objects.get(email=request.user.email)
-        except ObjectDoesNotExist:
-            return Response({"message": "User not found"}, status=HTTP_404_NOT_FOUND)
-        user_profile.profile_pic = profile_pic
-        user_profile.first_name = first_name
-        user_profile.last_name = last_name
-        user_profile.display_name = display_name
-        user_profile.save()
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+        # profile_pic = request.FILES.get("profile_pic")  # Extract the uploaded image
+        # first_name = request.data.get("first_name")
+        # last_name = request.data.get("last_name")
+        # display_name = request.data.get("display_name")
 
-        return Response({"message": "Profile updated successfully"})
+        # try:
+        #     user_profile = App_user.objects.get(email=request.user.email)
+        # except ObjectDoesNotExist:
+        #     return Response({"message": "User not found"}, status=HTTP_404_NOT_FOUND)
+        # user_profile.profile_pic = profile_pic
+        # user_profile.first_name = first_name
+        # user_profile.last_name = last_name
+        # user_profile.display_name = display_name
+        # user_profile.save()
+
+        # return Response({"message": "Profile updated successfully"})
