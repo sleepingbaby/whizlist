@@ -9,7 +9,9 @@ import {
   FormControl,
   Button,
   Tooltip,
+  IconButton,
 } from "@mui/material";
+import { Close } from "@mui/icons-material";
 import { FileUpload, SentimentSatisfied } from "@mui/icons-material";
 import { api } from "../utilities";
 
@@ -60,6 +62,7 @@ const Profile = () => {
   const [firstName, setFirstName] = useState(user.first_name);
   const [lastName, setLastName] = useState(user.last_name);
   const [userName, setUserName] = useState(user.display_name);
+  const [saveSuccess, setSaveSuccess] = useState(false);
   const [showUpload, setShowUpload] = useState(false);
   const handleMouseEnter = () => {
     setShowUpload(true);
@@ -81,7 +84,6 @@ const Profile = () => {
     if (!profilePic.includes("whizlist")) {
       formData["profile_pic"] = profilePic;
     }
-    console.log(formData);
     formData["first_name"] = firstName;
     formData["last_name"] = lastName;
     formData["display_name"] = userName;
@@ -94,7 +96,7 @@ const Profile = () => {
         },
       })
       .then((response) => {
-        console.log("Profile updated successfully: ", response.data);
+        setSaveSuccess(true);
       })
       .catch((error) => {
         console.error("Error updating profile: ", error);
@@ -208,10 +210,21 @@ const Profile = () => {
             </Stack>
           </Stack>
 
+          {saveSuccess && (
+            <Stack direction="row" alignItems="center" justifyContent="center">
+              <Typography sx={{ color: "orange", marginRight: "8px" }}>
+                Changes Made Successfully
+              </Typography>
+              <IconButton onClick={() => setSaveSuccess(false)}>
+                <Close fontSize="small" />
+              </IconButton>
+            </Stack>
+          )}
+
           <Button
             type="submit"
             onClick={handleSaveChanges}
-            sx={{ color: "orange" }}
+            sx={{ color: "white" }}
           >
             Save Changes
           </Button>
