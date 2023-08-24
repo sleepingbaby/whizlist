@@ -121,8 +121,8 @@ const Profile = () => {
         <Typography mb={2} sx={{ color: "white", fontWeight: "bold" }}>
           Profile
         </Typography>
-        <FormControl>
-          <Stack alignItems="center">
+        <FormControl sx={{ width: "100%" }}>
+          <Stack alignItems="center" sx={{ width: "100%" }}>
             <Button
               component="label"
               onMouseEnter={handleMouseEnter}
@@ -166,7 +166,7 @@ const Profile = () => {
               )}
             </Button>
 
-            <Stack>
+            <Stack width="100%">
               <Stack>
                 <TextField
                   variant="filled"
