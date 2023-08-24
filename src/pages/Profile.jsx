@@ -78,20 +78,10 @@ const Profile = () => {
 
   const handleSaveChanges = async () => {
     const formData = {};
-    if (profilePic) {
-      try {
-        const response = await fetch(profilePic, {
-          headers: {
-            Authorization: `Token ${localStorage.getItem("token")}`,
-          },
-        });
-
-        const blob = await response.blob();
-        formData["profile_pic"] = blob; // Append the image blob
-      } catch (error) {
-        console.error("Error fetching profile picture: ", error);
-      }
+    if (!profilePic.includes("whizlist")) {
+      formData["profile_pic"] = profilePic;
     }
+    console.log(formData);
     formData["first_name"] = firstName;
     formData["last_name"] = lastName;
     formData["display_name"] = userName;
