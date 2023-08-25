@@ -81,7 +81,7 @@ const Profile = () => {
 
   const handleSaveChanges = async () => {
     const formData = {};
-    if (!profilePic.includes("whizlist")) {
+    if (typeof profilePic !== "string" && !profilePic.includes("whizlist")) {
       formData["profile_pic"] = profilePic;
     }
     formData["first_name"] = firstName;
