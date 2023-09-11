@@ -15,14 +15,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     googleMapsApiKey={import.meta.env.VITE_GOOGLE_API_KEY}
     libraries={libraries}
   >
-    <React.StrictMode>
-      <ListingContextProvider>
-        <UserContextProvider>
-          <ThemeProvider theme={theme}>
-            <RouterProvider router={router} />
-          </ThemeProvider>
-        </UserContextProvider>
-      </ListingContextProvider>
-    </React.StrictMode>
+    <ListingContextProvider>
+      <UserContextProvider>
+        <ThemeProvider theme={theme}>
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </UserContextProvider>
+    </ListingContextProvider>
   </LoadScript>
 );
